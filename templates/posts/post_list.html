@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Anonymous Posts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .post img {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
+        .meta {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        a,
+        button {
+            text-decoration: none;
+            color: #007BFF;
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        a:hover,
+        button:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>All Posts ({{ posts.count }})</h1>
+    <p><a href="{% url 'create_post' %}">Create another post</a></p>
+    <hr>
+
+    {% if posts %}
+    {% for post in posts %}
+    <div class="post">
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Post image">
+        {% endif %}
+        <div class="meta">Posted at {{ post.created_at }}</div>
+
+        {% if user.is_staff %}
+        <div class="meta">IP: {{ post.ip_address }}</div>
+        <div class="meta">Blocked: {{ post.blocked }}</div>
+        {% if user.is_staff %}
+        <form action="{% url 'toggle_block' post.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">
+                {% if post.blocked %}Unblock{% else %}Block{% endif %}
+            </button>
+        </form>
+
+        <form action="{% url 'delete_post' post.id %}" method="post" onsubmit="return confirm('Are you sure?');">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+
+        <form action="{% url 'toggle_block' post.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">
+                {% if post.blocked %}Unblock{% else %}Block{% endif %}
+            </button>
+        </form>
+
+        <form action="{% url 'delete_post' post.id %}" method="post"
+            onsubmit="return confirm('Are you sure you want to delete this post?');">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No posts yet.</p>
+    {% endif %}
+</body>
+
+</html>

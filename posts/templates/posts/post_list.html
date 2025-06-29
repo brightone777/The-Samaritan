@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anonymous Posts</title>
+</head>
+
+<body>
+    <h1>Anonymous Posts</h1>
+    <a href="/">Create another post</a>
+    <hr>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" alt="Post image">
+    {% endif %}
+
+    {% for post in posts %}
+    <div style="border: 1px solid #ccc; margin-bottom: 15px; padding: 10px;">
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 300px;">
+        {% endif %}
+        <p style="font-size: small; color: gray;">
+            Posted {{ post.created_at|date:"M d, Y H:i" }}
+            {% if request.user.is_staff and post.ip_address %}
+            from IP: {{ post.ip_address }}
+            {% endif %}
+        </p>
+    </div>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+</body>
+
+</html>
+
+<h1>All Posts ({{ posts.count }})</h1>

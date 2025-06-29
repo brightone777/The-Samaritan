@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Anonymous Post</title>
+</head>
+
+<body>
+    <h1>Post Anonymously</h1>
+
+    {% if form.errors %}
+    <div style="color: red;">
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Post</button>
+    </form>
+
+    <p><a href="{% url 'post_list' %}">View All Posts</a></p>
+</body>
+
+</html>

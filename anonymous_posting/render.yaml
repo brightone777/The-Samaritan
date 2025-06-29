@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: the-samaritann
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py makemigrations
+      python manage.py migrate
+    startCommand: gunicorn anonymous_posting.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: anonymous_posting.settings
+      - key: SECRET_KEY
+        generateValue: true

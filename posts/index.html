@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Samaritan</title>
+</head>
+
+<body>
+    <h1>The Samaritan</h1>
+    <form method="post/">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit">post</button>
+    </form>
+    <u1>
+        {% for post in posts %}
+        <li>{{post.content}}({{ post.created_at }})</li>
+        {% endfor %}
+    </u1>
+</body>
+
+</html>
