@@ -90,9 +90,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    'API_KEY': os.environ.get("CLOUDINARY_API_KEY"),
-    'API_SECRET': os.environ.get("CLOUDINARY_API_SECRET"),
+    'CLOUD_NAME': os.environ.get("ds9723nqv"),
+    'API_KEY': os.environ.get("586689968825238"),
+    'API_SECRET': os.environ.get("ESt7Wg8cLy6IDmonB7Q3XA-sDfw"),
 }
 
 # Email setup
