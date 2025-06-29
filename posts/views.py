@@ -106,16 +106,3 @@ def test_cloudinary_config(request):
         "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
         "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
     })
-
-
-def home(request):
-    posts = Post.objects.filter(blocked=False).order_by('-created_at')
-    for post in posts:
-        url = None
-        try:
-            url = post.image.url
-        except Exception as e:
-            logger.error(
-                "Error retrieving image.url for post %s: %s", post.id, e)
-        logger.info("DEBUG: post.id=%s, image_url=%s", post.id, url or "None")
-    # ... rest of your existing view ...

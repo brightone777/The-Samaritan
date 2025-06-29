@@ -37,6 +37,7 @@
         .post img {
             max-width: 100%;
             margin-top: 10px;
+            border-radius: 4px;
         }
 
         .meta {
@@ -76,7 +77,7 @@
     <div class="post">
         <p>{{ post.content }}</p>
 
-        {% if post.image %}
+        {% if post.image and post.image.url %}
         <img src="{{ post.image.url }}" alt="Post Image">
         {% else %}
         <p><i>No image attached</i></p>
