@@ -26,8 +26,8 @@ def home(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-        if request.FILES.get('image'):
-            from django.core.files.storage import default_storage
+            if request.FILES.get('image'):
+                from django.core.files.storage import default_storage
             import logging
             logger = logging.getLogger(__name__)
             logger.info("Image upload detected.")
@@ -48,8 +48,8 @@ def create_anonymous_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-        if request.FILES.get('image'):
-            from django.core.files.storage import default_storage
+            if request.FILES.get('image'):
+                from django.core.files.storage import default_storage
             import logging
             logger = logging.getLogger(__name__)
             logger.info("Image upload detected.")
