@@ -106,3 +106,11 @@ def test_cloudinary_config(request):
         "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
         "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
     })
+
+
+def home(request):
+    posts = Post.objects.filter(blocked=False).order_by('-created_at')
+    for post in posts:
+        logger.info("DEBUG: post.id=%s, image_url=%s", post.id,
+                    post.image.url if post.image else "None")
+    # existing code...
